@@ -246,6 +246,8 @@
                         <span data-product-stock>{{product.stock_level}}</span>
                     </label>
                 </div>
+                <div id="bestbuy_integration"></div>
+
                 {{> components/products/add-to-cart with_wallet_buttons=true}}
                 {{#if product.out_of_stock}}
                     {{#if product.out_of_stock_message}}

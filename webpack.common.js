@@ -1,10 +1,9 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
-    { CleanWebpackPlugin } = require('clean-webpack-plugin'),
-    LodashPlugin = require('lodash-webpack-plugin'),
-    path = require('path'),
-    webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const LodashPlugin = require('lodash-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
-// Common configuration, with extensions in webpack.dev.js and webpack.prod.js.
 module.exports = {
     bail: true,
     context: __dirname,
@@ -24,27 +23,35 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         plugins: [
-                            '@babel/plugin-syntax-dynamic-import', // add support for dynamic imports (used in app.js)
-                            'lodash', // Tree-shake lodash
-                            'transform-object-assign', // React Dependency 
+                            '@babel/plugin-syntax-dynamic-import',
+                            'lodash',
+                            'transform-object-assign',
                         ],
                         presets: [
-                            ['@babel/preset-env', {
-                                loose: true, // Enable "loose" transformations for any plugins in this preset that allow them
-                                modules: false, // Don't transform modules; needed for tree-shaking
-                                useBuiltIns: 'entry',
-                                corejs: '^3.6.5',
-                            }],
-                            '@babel/react', // React Dependency 
+                            [
+                                '@babel/preset-env',
+                                {
+                                    loose: true,
+                                    modules: false,
+                                    useBuiltIns: 'entry',
+                                    corejs: '^3.6.5',
+                                },
+                            ],
+                            '@babel/react',
                         ],
                     },
                 },
             },
             {
-                test: require.resolve("jquery"),
-                loader: "expose-loader",
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+            // Add other loaders for SCSS or other CSS pre-processors if needed.
+            {
+                test: require.resolve('jquery'),
+                loader: 'expose-loader',
                 options: {
-                  exposes: ["$"],
+                    exposes: ['$'],
                 },
             },
         ],
@@ -65,8 +72,8 @@ module.exports = {
             verbose: false,
             watch: false,
         }),
-        new LodashPlugin(), // Complements babel-plugin-lodash by shrinking its cherry-picked builds further.
-        new webpack.ProvidePlugin({ // Provide jquery automatically without explicit import
+        new LodashPlugin(),
+        new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
@@ -77,7 +84,7 @@ module.exports = {
         }),
     ],
     resolve: {
-        fallback:  { "url": require.resolve("url/") },
+        fallback: { url: require.resolve('url/') },
         alias: {
             jquery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
             jstree: path.resolve(__dirname, 'node_modules/jstree/dist/jstree.min.js'),

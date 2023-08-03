@@ -1,7 +1,13 @@
 import React from "react";
+import BestbuyModal from "./Modal/BestbuyModal";
+
 const BestbuyIntegration = () => {
     console.log("Hellow");
-return <h1>First React Component</h1>
+    return (
+        <>
+            <BestbuyModal />
+        </>
+    )
 };
 
 export default BestbuyIntegration;

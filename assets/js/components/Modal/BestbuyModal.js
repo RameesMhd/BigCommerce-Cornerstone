@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import StoreList from './StoreList';
 import './BestbuyModal.css'
 
 const BestbuyModal = () => {
@@ -6,12 +7,125 @@ const BestbuyModal = () => {
     const [isActiveFirstItem, setIsActiveFirstItem] = useState(true);
     const [isActiveSecondItem, setIsActiveSecondItem] = useState(false);
 
+    const storesData = {
+        "ispuEligible": true,
+        "stores": [
+            {
+                "storeID": "201",
+                "name": "North Star",
+                "address": "125 NW Loop 410",
+                "city": "San Antonio",
+                "state": "TX",
+                "postalCode": "78216",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": false,
+                "distance": 1.20
+            },
+            {
+                "storeID": "1082",
+                "name": "Legacy",
+                "address": "2003 N Loop 1604 E",
+                "city": "San Antonio",
+                "state": "TX",
+                "postalCode": "78232",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": false,
+                "distance": 5.30
+            },
+            {
+                "storeID": "864",
+                "name": "La Cantera",
+                "address": "17414 La Cantera",
+                "city": "San Antonio",
+                "state": "TX",
+                "postalCode": "78257",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": false,
+                "distance": 7.50
+            },
+            {
+                "storeID": "152",
+                "name": "San Antonio Ingram",
+                "address": "6001 NW Loop 410",
+                "city": "San Antonio",
+                "state": "TX",
+                "postalCode": "78238",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": false,
+                "distance": 8.00
+            },
+            {
+                "storeID": "181",
+                "name": "Forum",
+                "address": "8210 Agora Pkwy",
+                "city": "Selma",
+                "state": "TX",
+                "postalCode": "78154",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": true,
+                "distance": 10.50
+            },
+            {
+                "storeID": "1459",
+                "name": "Alamo Ranch",
+                "address": "5419 W Loop 1604 N",
+                "city": "San Antonio",
+                "state": "TX",
+                "postalCode": "78253",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": false,
+                "distance": 13.10
+            },
+            {
+                "storeID": "1081",
+                "name": "City Base",
+                "address": "3142 SE Military Dr",
+                "city": "San Antonio",
+                "state": "TX",
+                "postalCode": "78223",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": false,
+                "distance": 13.60
+            },
+            {
+                "storeID": "828",
+                "name": "San Marcos",
+                "address": "1050 McKinley Place Dr",
+                "city": "San Marcos",
+                "state": "TX",
+                "postalCode": "78666",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": false,
+                "distance": 39.20
+            },
+            {
+                "storeID": "2516",
+                "name": "Southpark Meadows",
+                "address": "9600 S Interstate 35",
+                "city": "Austin",
+                "state": "TX",
+                "postalCode": "78748",
+                "storeType": "Big_Box_Store",
+                "minPickupHours": null,
+                "lowStock": false,
+                "distance": 60.30
+            }
+        ]
+    }
     const toggleModal = () => {
         setModal(!modal);
     };
 
-    const divCount = 5;
-    const divArray = Array.from({ length: divCount }, (_, index) => index + 1);
+    // const divCount = 5;
+    // const divArray = Array.from({ length: divCount }, (_, index) => index + 1);
     const toggleActiveClass = (item) => {
         if (item === 'first') {
             setIsActiveFirstItem(true);
@@ -46,7 +160,7 @@ const BestbuyModal = () => {
                             <div className="panel-top-container">
 
                                 <div className="pn-top-text">
-                                    Pickup Availability near <span className="postel-code">60654</span>
+                                    Pickup Availability near <span className="postel-code">78216</span>
                                 </div>
 
                             </div>
@@ -76,7 +190,11 @@ const BestbuyModal = () => {
 
                             <div className="location-panel-pop">
                                 <ul>
-                                    {divArray.map((number) => (
+                                    <li>
+                                        <StoreList stores={storesData.stores} />
+                                    </li>
+
+                                    {/* {divArray.map((number) => (
                                         <li>
                                             <div className="lc-item-box">
                                                 <div className="item-distance-box">
@@ -93,7 +211,7 @@ const BestbuyModal = () => {
                                                 </div>
                                             </div>
                                         </li>
-                                    ))}
+                                    ))} */}
                                 </ul>
                             </div>
                         </div>

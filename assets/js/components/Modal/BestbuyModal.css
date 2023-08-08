@@ -214,11 +214,18 @@ body.active-modal {
   margin: 10px 0;
 }
 
-.location-map-container{
+.location-map-container {
   height: calc(100% - 170px);
   overflow: hidden;
 }
 
-.location-map-container iframe{
+.location-map-container iframe {
   height: 80vh !important;
+}
+
+.store-address {
+  margin: 0;
+}
+.weight-text {
+  font-weight: bold;
 }

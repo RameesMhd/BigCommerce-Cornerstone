@@ -10,6 +10,8 @@ const BestbuyModal = () => {
         setModal(!modal);
     };
 
+    const divCount = 5;
+    const divArray = Array.from({ length: divCount }, (_, index) => index + 1);
     const toggleActiveClass = (item) => {
         if (item === 'first') {
             setIsActiveFirstItem(true);
@@ -40,38 +42,60 @@ const BestbuyModal = () => {
                 <div className="bby-location-popup">
                     <div onClick={toggleModal} className="bby-overlay"></div>
                     <div className="bby-popup-content">
-                        <div className="panel-top-container">
+                        <div className="bby-top-section">
+                            <div className="panel-top-container">
 
-                            <div className="pn-top-text">
-                                Pickup Availability near <span className="postel-code">60654</span>
-                            </div>
-
-                        </div>
-                        <div className="panel-list-content">
-                            <div className={isActiveFirstItem ? 'main-item-active first-item' : 'first-item'} onClick={() => toggleActiveClass('first')}>
-                                <div className={isActiveFirstItem ? 'item-active first-item-content' : 'first-item-content'}>
-                                    All Eligible Items
+                                <div className="pn-top-text">
+                                    Pickup Availability near <span className="postel-code">60654</span>
                                 </div>
+
                             </div>
-                            <div className={isActiveSecondItem ? 'main-item-active second-item' : 'second-item'} onClick={() => toggleActiveClass('second')}>
-                                <div className={isActiveSecondItem ? 'item-active second-item-content' : 'second-item-content'}>
-                                    <div className="item-img-box">
-                                        <img className="item-img" src="https://sadectip.sirv.com/Assets/lenovo.png" alt="" />
+                            <div className="panel-list-content">
+                                <div className={isActiveFirstItem ? 'main-item-active first-item' : 'first-item'} onClick={() => toggleActiveClass('first')}>
+                                    <div className={isActiveFirstItem ? 'item-active first-item-content' : 'first-item-content'}>
+                                        All Eligible Items
+                                    </div>
+                                </div>
+                                <div className={isActiveSecondItem ? 'main-item-active second-item' : 'second-item'} onClick={() => toggleActiveClass('second')}>
+                                    <div className={isActiveSecondItem ? 'item-active second-item-content' : 'second-item-content'}>
+                                        <div className="item-img-box">
+                                            <img className="item-img" src="https://sadectip.sirv.com/Assets/lenovo.png" alt="" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
+                                <span>
+                                    All Eligible Items
+                                </span>
+                            </div>
                         </div>
-                        <div class="panel-bottom-text"><strong>Pickup Location for : </strong>
-                            <span>
-                                All Eligible Items
-                            </span>
-                        </div>
+
                         <div className="location-map-container">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate expedita
-                                cumque praesentium voluptas hic nemo rerum veritatis, veniam obcaecati velit!
-                                Possimus facilis reprehenderit iste odit!
-                            </p>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d888813.1931412118!2d-99.55072402954099!3d29.518500480769003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865c60080b3a8683%3A0xa1efdeee07c5cf83!2sNorth%20Star%20Mall!5e0!3m2!1sen!2sin!4v1691132606327!5m2!1sen!2sin" width="100%" height="500px" loading="lazy" />
+
+                            <div className="location-panel-pop">
+                                <ul>
+                                    {divArray.map((number) => (
+                                        <li>
+                                            <div className="lc-item-box">
+                                                <div className="item-distance-box">
+                                                    <div className="item-number">{number}</div>
+                                                    <div className="item-distance" data-tkey="number.miles.away">1.7 Miles Away</div>
+                                                </div>
+                                                <div className="item-title">Best Buy Store, North Avenue
+                                                </div>
+                                                <div className="item-status">
+                                                    <span className="weight-text"
+                                                    >In Stock,
+                                                    </span>
+                                                    <span >Ready Today</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                         <button className="close-modal" onClick={toggleModal}>
                             <img src="https://sadectip.sirv.com/Assets/close.svg" alt="" />

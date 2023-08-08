@@ -4,7 +4,7 @@ const StoreList = ({ stores }) => {
     return (
         <div>
             {stores.map((store, index) => (
-                <div className="lc-item-box">
+                <div key={index} className="lc-item-box">
                     <div className="item-distance-box">
                         <div className="item-number">{index + 1}</div>
                         <div className="item-distance" data-tkey="number.miles.away">{store.distance} Miles Away</div>

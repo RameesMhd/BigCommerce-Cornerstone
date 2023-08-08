@@ -229,3 +229,52 @@ body.active-modal {
 .weight-text {
   font-weight: bold;
 }
+
+.panel-top-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.label-postalcode {
+  color: #0d5c91;
+}
+.save-postalcode {
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  height: 20px;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #0d5c91;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #0d5c91;
+  text-decoration: none;
+  padding: 12px;
+}
+
+.label-postalcode:hover {
+  background: #e3f2f9;
+  color: #0d5c91;
+}
+
+.input-postalcode {
+  font-size: 16px;
+}
+.search-postalcode {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.postalcode-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.error-message{
+  margin: 0;
+}

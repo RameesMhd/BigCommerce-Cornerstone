@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import StoreList from './StoreList';
+import SearchPostalCode from "./SearchPostalCode";
 import './BestbuyModal.css'
 
 const BestbuyModal = () => {
@@ -145,7 +146,7 @@ const BestbuyModal = () => {
                         Store Pickup
                     </p>
                 </div>
-                <span> Ready Today at <strong >BEST BUY</strong> North Avenue</span>
+                <span> Ready  at <strong >BEST BUY</strong> Stores</span>
                 <a onClick={toggleModal} className="bby-btn-modal">
                     See all pickup locations
                 </a>
@@ -162,6 +163,7 @@ const BestbuyModal = () => {
                                 <div className="pn-top-text">
                                     Pickup Availability near <span className="postel-code">78216</span>
                                 </div>
+                                <SearchPostalCode />
 
                             </div>
                             <div className="panel-list-content">
@@ -173,14 +175,14 @@ const BestbuyModal = () => {
                                 <div className={isActiveSecondItem ? 'main-item-active second-item' : 'second-item'} onClick={() => toggleActiveClass('second')}>
                                     <div className={isActiveSecondItem ? 'item-active second-item-content' : 'second-item-content'}>
                                         <div className="item-img-box">
-                                            <img className="item-img" src="https://sadectip.sirv.com/Assets/lenovo.png" alt="" />
+                                            <img className="item-img" src="https://sadectip.sirv.com/Assets/622.png" alt="" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
                                 <span>
-                                    All Eligible Items
+                                    {isActiveFirstItem ? 'All Eligible Items' : '622GW Dash Cam'}
                                 </span>
                             </div>
                         </div>

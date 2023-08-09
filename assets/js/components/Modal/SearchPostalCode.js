@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SearchPostalCode() {
+const SearchPostalCode = () => {
     const [inputVisible, setInputVisible] = useState(false);
     const [inputData, setInputData] = useState('');
     const [error, setError] = useState('');

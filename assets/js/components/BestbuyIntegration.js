@@ -1,10 +1,10 @@
 import React from "react";
 import BestbuyModal from "./Modal/BestbuyModal";
 
-const BestbuyIntegration = () => {
+const BestbuyIntegration = (getContext) => {
     return (
         <>
-            <BestbuyModal />
+            <BestbuyModal pageContext={getContext} />
         </>
     )
 };

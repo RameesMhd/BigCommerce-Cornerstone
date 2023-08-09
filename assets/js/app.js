@@ -55,7 +55,10 @@ const pageClasses = {
     wishlists: () => import('./theme/wishlist'),
 };
 
-const customClasses = {};
+const customClasses = {
+    'pages/product': () => import('./components/Modal/BopisMain'), // Mac/Linux/Windows
+    'pages/cart': () => import('./components/Modal/BopisMain'), // Mac/Linux/Windows
+};
 
 /**
  * This function gets added to the global window and then called
@@ -99,5 +102,3 @@ window.stencilBootstrap = function stencilBootstrap(pageType, contextJSON = null
         },
     };
 };
-
-ReactDOM.render(<BestbuyIntegration />, document.querySelector('#bestbuy_integration'));

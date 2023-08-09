@@ -3,10 +3,12 @@ import StoreList from './StoreList';
 import SearchPostalCode from "./SearchPostalCode";
 import './BestbuyModal.css'
 
-const BestbuyModal = () => {
+const BestbuyModal = (pageContext) => {
     const [modal, setModal] = useState(false);
     const [isActiveFirstItem, setIsActiveFirstItem] = useState(true);
     const [isActiveSecondItem, setIsActiveSecondItem] = useState(false);
+    
+    let myContext = pageContext.pageContext.getContext  // Get Context in myContext
 
     const storesData = {
         "ispuEligible": true,

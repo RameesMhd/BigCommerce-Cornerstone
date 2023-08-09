@@ -9,6 +9,7 @@ const BestbuyModal = (pageContext) => {
     const [isActiveSecondItem, setIsActiveSecondItem] = useState(false);
     
     let myContext = pageContext.pageContext.getContext  // Get Context in myContext
+    let productDetails = myContext.productData
 
     const storesData = {
         "ispuEligible": true,
@@ -177,14 +178,14 @@ const BestbuyModal = (pageContext) => {
                                 <div className={isActiveSecondItem ? 'main-item-active second-item' : 'second-item'} onClick={() => toggleActiveClass('second')}>
                                     <div className={isActiveSecondItem ? 'item-active second-item-content' : 'second-item-content'}>
                                         <div className="item-img-box">
-                                            <img className="item-img" src="https://sadectip.sirv.com/Assets/622.png" alt="" />
+                                            <img className="item-img" src={productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
                                 <span>
-                                    {isActiveFirstItem ? 'All Eligible Items' : '622GW Dash Cam'}
+                                    {isActiveFirstItem ? 'All Eligible Items' : productDetails.title}
                                 </span>
                             </div>
                         </div>

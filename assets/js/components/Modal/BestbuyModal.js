@@ -216,7 +216,7 @@ const BestbuyModal = (pageContext) => {
                                         <div className="input-error">
                                             <input
                                                 className='input-postalcode'
-                                                type="text"
+                                                type="number"
                                                 placeholder="Enter Postal Code"
                                                 value={inputData}
                                                 onChange={inputDataHandler}

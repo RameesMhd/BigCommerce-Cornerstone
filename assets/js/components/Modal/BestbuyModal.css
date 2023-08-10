@@ -33,6 +33,7 @@ body.active-modal {
 }
 .bby-top-section {
   padding: 0 32px;
+  height: 170px;
 }
 .bby-popup-content {
   position: relative;

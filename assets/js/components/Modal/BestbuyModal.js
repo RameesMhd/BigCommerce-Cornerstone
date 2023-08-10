@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import StoreList from './StoreList';
-import SearchPostalCode from "./SearchPostalCode";
 import './BestbuyModal.css'
 
 const BestbuyModal = (pageContext) => {
     const [modal, setModal] = useState(false);
     const [isActiveFirstItem, setIsActiveFirstItem] = useState(true);
     const [isActiveSecondItem, setIsActiveSecondItem] = useState(false);
-    
+
     let myContext = pageContext.pageContext.getContext  // Get Context in myContext
     let productDetails = myContext.productData
 
@@ -128,8 +127,6 @@ const BestbuyModal = (pageContext) => {
         setModal(!modal);
     };
 
-    // const divCount = 5;
-    // const divArray = Array.from({ length: divCount }, (_, index) => index + 1);
     const toggleActiveClass = (item) => {
         if (item === 'first') {
             setIsActiveFirstItem(true);
@@ -140,6 +137,41 @@ const BestbuyModal = (pageContext) => {
         }
 
     }
+
+    // ***************** Update Location ******************
+    const [inputVisible, setInputVisible] = useState(false);
+    const [inputData, setInputData] = useState('');
+    const [error, setError] = useState('');
+    const [isPanelVisible, setPanelVisible] = useState(true);
+    const [isCancel, setCancel] = useState(false);
+
+    const handleShowInput = () => {
+        setInputVisible(true);
+        setError('');
+        setInputData('');
+        setPanelVisible(false);
+        setCancel(true);
+    };
+
+    const handleSave = () => {
+        if (inputData.trim() === '') {
+            setError('Please enter a value');
+            return;
+        }
+
+        // You can perform further actions with the entered data here
+
+        // setInputVisible(false);
+    };
+
+    const handleCancel = () => {
+        setInputVisible(false);
+        setError('');
+        setInputData('');
+        setPanelVisible(true);
+        setCancel(false);
+    };
+
     return (
         <>
             <div className="bby-wrapper-section">
@@ -166,23 +198,42 @@ const BestbuyModal = (pageContext) => {
                                 <div className="pn-top-text">
                                     Pickup Availability near <span className="postel-code">78216</span>
                                 </div>
-                                <SearchPostalCode />
+                                {/* Update Location Section Starts Here */}
+                                <div className="search-postalcode">
+                                    <a className='label-postalcode' onClick={handleShowInput}>Update Location</a>
+                                    {isCancel && (<a className='cancel-postalcode-entry' onClick={handleCancel}>Cancel</a>)}
+                                    {inputVisible && (
+                                        <div className='postalcode-entry'>
+                                            <input
+                                                className='input-postalcode'
+                                                type="text"
+                                                placeholder="Enter Postal Code"
+                                                value={inputData}
+                                                onChange={(e) => setInputData(e.target.value)}
+                                            />
+                                            {error && <p className='error-message' style={{ color: 'red' }}>{error}</p>}
+                                            <a className='save-postalcode' onClick={handleSave}>Save</a>
+                                        </div>
+                                    )}
+                                </div>
 
                             </div>
-                            <div className="panel-list-content">
-                                <div className={isActiveFirstItem ? 'main-item-active first-item' : 'first-item'} onClick={() => toggleActiveClass('first')}>
-                                    <div className={isActiveFirstItem ? 'item-active first-item-content' : 'first-item-content'}>
-                                        All Eligible Items
+                            {isPanelVisible && (
+                                <div className="panel-list-content">
+                                    <div className={isActiveFirstItem ? 'main-item-active first-item' : 'first-item'} onClick={() => toggleActiveClass('first')}>
+                                        <div className={isActiveFirstItem ? 'item-active first-item-content' : 'first-item-content'}>
+                                            All Eligible Items
+                                        </div>
                                     </div>
-                                </div>
-                                <div className={isActiveSecondItem ? 'main-item-active second-item' : 'second-item'} onClick={() => toggleActiveClass('second')}>
-                                    <div className={isActiveSecondItem ? 'item-active second-item-content' : 'second-item-content'}>
-                                        <div className="item-img-box">
-                                            <img className="item-img" src={productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
+                                    <div className={isActiveSecondItem ? 'main-item-active second-item' : 'second-item'} onClick={() => toggleActiveClass('second')}>
+                                        <div className={isActiveSecondItem ? 'item-active second-item-content' : 'second-item-content'}>
+                                            <div className="item-img-box">
+                                                <img className="item-img" src={productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
                             <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
                                 <span>
                                     {isActiveFirstItem ? 'All Eligible Items' : productDetails.title}
@@ -198,25 +249,6 @@ const BestbuyModal = (pageContext) => {
                                     <li>
                                         <StoreList stores={storesData.stores} />
                                     </li>
-
-                                    {/* {divArray.map((number) => (
-                                        <li>
-                                            <div className="lc-item-box">
-                                                <div className="item-distance-box">
-                                                    <div className="item-number">{number}</div>
-                                                    <div className="item-distance" data-tkey="number.miles.away">1.7 Miles Away</div>
-                                                </div>
-                                                <div className="item-title">Best Buy Store, North Avenue
-                                                </div>
-                                                <div className="item-status">
-                                                    <span className="weight-text"
-                                                    >In Stock,
-                                                    </span>
-                                                    <span >Ready Today</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    ))} */}
                                 </ul>
                             </div>
                         </div>

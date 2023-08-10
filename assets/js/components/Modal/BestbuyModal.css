@@ -243,7 +243,8 @@ body.active-modal {
   color: #fff;
   font-weight: bold;
   border-radius: 4px;
-  height: 20px;
+  height: 40px;
+  width: 100px;
   cursor: pointer;
   text-align: center;
   border: 1px solid #0d5c91;
@@ -255,27 +256,29 @@ body.active-modal {
   padding: 12px;
 }
 
-.label-postalcode:hover {
-  background: #e3f2f9;
-  color: #0d5c91;
+.cancel-postalcode-entry {
+  padding-left: 10px;
+  border-left: 2px solid;
 }
 
 .input-postalcode {
   font-size: 16px;
+  height: 40px;
 }
-.search-postalcode {
+.top-buttons {
   display: flex;
   gap: 10px;
-  flex-direction: row;
-  align-items: center;
 }
-
+.top-buttons a {
+  text-decoration: none;
+  color: #0d5c91;
+}
 .postalcode-entry {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
 
-.error-message{
+.error-message {
   margin: 0;
 }

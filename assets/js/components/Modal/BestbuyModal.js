@@ -3,7 +3,7 @@ import StoreList from './StoreList';
 import './BestbuyModal.css'
 
 const BestbuyModal = (pageContext) => {
-    const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(true);
     const [isActiveFirstItem, setIsActiveFirstItem] = useState(true);
     const [isActiveSecondItem, setIsActiveSecondItem] = useState(false);
 
@@ -172,6 +172,11 @@ const BestbuyModal = (pageContext) => {
         setCancel(false);
     };
 
+    const inputDataHandler = (event) => {
+        setInputData(event.target.value)
+        setError(false)
+    }
+
     return (
         <>
             <div className="bby-wrapper-section">
@@ -194,30 +199,35 @@ const BestbuyModal = (pageContext) => {
                     <div className="bby-popup-content">
                         <div className="bby-top-section">
                             <div className="panel-top-container">
-
                                 <div className="pn-top-text">
                                     Pickup Availability near <span className="postel-code">78216</span>
                                 </div>
-                                {/* Update Location Section Starts Here */}
-                                <div className="search-postalcode">
+                                <div className="top-buttons">
                                     <a className='label-postalcode' onClick={handleShowInput}>Update Location</a>
                                     {isCancel && (<a className='cancel-postalcode-entry' onClick={handleCancel}>Cancel</a>)}
-                                    {inputVisible && (
-                                        <div className='postalcode-entry'>
+                                </div>
+                            </div>
+
+                            {/* Update Location Section Starts Here */}
+                            <div className="search-postalcode">
+
+                                {inputVisible && (
+                                    <div className='postalcode-entry'>
+                                        <div className="input-error">
                                             <input
                                                 className='input-postalcode'
                                                 type="text"
                                                 placeholder="Enter Postal Code"
                                                 value={inputData}
-                                                onChange={(e) => setInputData(e.target.value)}
+                                                onChange={inputDataHandler}
                                             />
                                             {error && <p className='error-message' style={{ color: 'red' }}>{error}</p>}
-                                            <a className='save-postalcode' onClick={handleSave}>Save</a>
                                         </div>
-                                    )}
-                                </div>
-
+                                        <a className='save-postalcode' onClick={handleSave}>Save</a>
+                                    </div>
+                                )}
                             </div>
+
                             {isPanelVisible && (
                                 <div className="panel-list-content">
                                     <div className={isActiveFirstItem ? 'main-item-active first-item' : 'first-item'} onClick={() => toggleActiveClass('first')}>

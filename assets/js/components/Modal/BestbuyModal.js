@@ -144,7 +144,7 @@ const BestbuyModal = (pageContext) => {
     const [error, setError] = useState('');
     const [isPanelVisible, setPanelVisible] = useState(true);
     const [isCancel, setCancel] = useState(false);
-
+    const [generatedUrl, setGeneratedUrl] = useState('');
     const handleShowInput = () => {
         setInputVisible(true);
         setError('');
@@ -153,15 +153,25 @@ const BestbuyModal = (pageContext) => {
         setCancel(true);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (inputData.trim() === '') {
             setError('Please enter a value');
             return;
         }
 
-        // You can perform further actions with the entered data here
+        const baseUrl = 'https://bb-nb-bopis-middleware-5f718f91dc1a.herokuapp.com/getData';
+        const response = await fetch(baseUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ number: inputData }),
+        });
 
-        // setInputVisible(false);
+        if (response.ok) {
+            const responseData = await response.json();
+            setGeneratedUrl(responseData.url);
+        }
     };
 
     const handleCancel = () => {
@@ -223,7 +233,8 @@ const BestbuyModal = (pageContext) => {
                                             />
                                             {error && <p className='error-message' style={{ color: 'red' }}>{error}</p>}
                                         </div>
-                                        <a className='save-postalcode' onClick={handleSave}>Save</a>
+                                        <a className='save-postalcode' onClick={handleSave} >Save</a>
+                                        <span>{generatedUrl}</span>
                                     </div>
                                 )}
                             </div>

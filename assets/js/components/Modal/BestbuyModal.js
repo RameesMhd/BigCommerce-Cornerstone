@@ -3,7 +3,7 @@ import StoreList from './StoreList';
 import './BestbuyModal.css'
 
 const BestbuyModal = (pageContext) => {
-    const [modal, setModal] = useState(true);
+    const [modal, setModal] = useState(false);
     const [isActiveFirstItem, setIsActiveFirstItem] = useState(true);
     const [isActiveSecondItem, setIsActiveSecondItem] = useState(false);
     const [storeData, setStoreData] = useState(null);
@@ -183,7 +183,7 @@ const BestbuyModal = (pageContext) => {
                             <div className="location-panel-pop">
                                 <ul>
                                     <li>
-                                        <StoreList stores={storeData ? storeData.pickupAvailabilities : []} />
+                                        <StoreList stores={storeData ? storeData : []} />
                                     </li>
                                 </ul>
                             </div>

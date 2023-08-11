@@ -9,12 +9,15 @@ const StoreList = ({ stores }) => {
                         <div className="item-number">{index + 1}</div>
                         <div className="item-distance" data-tkey="number.miles.away">{store.distanceInMiles} Miles Away</div>
                     </div>
-                    <div className="item-title">{store.locationId}
+                    <div className="item-title">{store.displayName}
                     </div>
-                    <p className='store-address'>Available on {store.availabilityDate}</p>
+                    <p className='store-address'> {store.address}</p>
                     <div className="item-status">
-                        <span className="weight-text"
+                        {/* <span className="weight-text"
                         >{store.lowStock ? <p>Low Stock</p> : <p>In Stock</p>}
+                        </span> */}
+                        <span className="weight-text">
+                            <p>In Stock by {store.availabilityDate}</p>
                         </span>
                     </div>
                     <div className='item-address'>

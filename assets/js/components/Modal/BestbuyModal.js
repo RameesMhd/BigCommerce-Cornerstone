@@ -236,7 +236,7 @@ const BestbuyModal = (pageContext) => {
                             <div className="location-panel-pop">
                                 <ul>
                                     <li>
-                                        <StoreList stores={storesData.pickupAvailabilities} />
+                                        <StoreList stores={storeData ? storeData.pickupAvailabilities : []} />
                                     </li>
                                 </ul>
                             </div>

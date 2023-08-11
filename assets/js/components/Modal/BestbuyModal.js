@@ -140,7 +140,7 @@ const BestbuyModal = (pageContext) => {
 
     // ***************** Update Location ******************
     const [inputVisible, setInputVisible] = useState(false);
-    const [inputData, setInputData] = useState('');
+    const [inputPostal, setInputData] = useState('');
     const [error, setError] = useState('');
     const [isPanelVisible, setPanelVisible] = useState(true);
     const [isCancel, setCancel] = useState(false);
@@ -154,18 +154,19 @@ const BestbuyModal = (pageContext) => {
     };
 
     const handleSave = async () => {
-        if (inputData.trim() === '') {
+        if (inputPostal.trim() === '') {
             setError('Please enter a value');
             return;
         }
 
-        const baseUrl = 'https://bb-nb-bopis-middleware-5f718f91dc1a.herokuapp.com/getData';
+        // const baseUrl = 'https://bb-nb-bopis-middleware-5f718f91dc1a.herokuapp.com/getData'; // Heroku Url
+        const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
         const response = await fetch(baseUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ number: inputData }),
+            body: JSON.stringify({ postalCode: inputPostal }),
         });
 
         if (response.ok) {
@@ -185,6 +186,9 @@ const BestbuyModal = (pageContext) => {
     const inputDataHandler = (event) => {
         setInputData(event.target.value)
         setError(false)
+        // Prevent taking charectors from the input field.
+        const sanitizedValue = event.target.value.replace(/\D/g, '').slice(0, 5);
+        setInputData(sanitizedValue);
     }
 
     return (
@@ -226,9 +230,10 @@ const BestbuyModal = (pageContext) => {
                                         <div className="input-error">
                                             <input
                                                 className='input-postalcode'
-                                                type="number"
+                                                type="text"
                                                 placeholder="Enter Postal Code"
-                                                value={inputData}
+                                                maxLength={5}
+                                                value={inputPostal}
                                                 onChange={inputDataHandler}
                                             />
                                             {error && <p className='error-message' style={{ color: 'red' }}>{error}</p>}

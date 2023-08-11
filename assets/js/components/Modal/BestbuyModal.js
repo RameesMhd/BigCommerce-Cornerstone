@@ -9,119 +9,77 @@ const BestbuyModal = (pageContext) => {
 
     let myContext = pageContext.pageContext.getContext  // Get Context in myContext
     let productDetails = myContext.productData
-
-    const storesData = {
-        "ispuEligible": true,
-        "stores": [
+    // var storesData = {
+    //     "stores": [
+    //         {
+    //             "storeID": "201",
+    //             "name": "North Star",
+    //             "address": "125 NW Loop 410",
+    //             "city": "San Antonio",
+    //             "state": "TX",
+    //             "postalCode": "78216",
+    //             "storeType": "Big_Box_Store",
+    //             "minPickupHours": null,
+    //             "lowStock": false,
+    //             "distance": 1.20
+    //         },
+    //         {
+    //             "storeID": "1082",
+    //             "name": "Legacy",
+    //             "address": "2003 N Loop 1604 E",
+    //             "city": "San Antonio",
+    //             "state": "TX",
+    //             "postalCode": "78232",
+    //             "storeType": "Big_Box_Store",
+    //             "minPickupHours": null,
+    //             "lowStock": false,
+    //             "distance": 5.30
+    //         },
+    //         {
+    //             "storeID": "864",
+    //             "name": "La Cantera",
+    //             "address": "17414 La Cantera",
+    //             "city": "San Antonio",
+    //             "state": "TX",
+    //             "postalCode": "78257",
+    //             "storeType": "Big_Box_Store",
+    //             "minPickupHours": null,
+    //             "lowStock": false,
+    //             "distance": 7.50
+    //         }
+    //     ]
+    // }
+    var storesData = {
+        "pickupAvailabilities": [
             {
-                "storeID": "201",
-                "name": "North Star",
-                "address": "125 NW Loop 410",
-                "city": "San Antonio",
-                "state": "TX",
-                "postalCode": "78216",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": false,
-                "distance": 1.20
+                "availabilityDate": "2023-08-11",
+                "distanceInMiles": 11111,
+                "fulfillmentMode": "PICKUP",
+                "locationCriterion": "BEST",
+                "locationId": "Test JSON Data",
+                "pickupReadyInMinutes": 120
             },
             {
-                "storeID": "1082",
-                "name": "Legacy",
-                "address": "2003 N Loop 1604 E",
-                "city": "San Antonio",
-                "state": "TX",
-                "postalCode": "78232",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": false,
-                "distance": 5.30
+                "availabilityDate": "2023-08-14",
+                "distanceInMiles": 11111,
+                "fulfillmentMode": "PICKUP",
+                "locationCriterion": "NEAREST",
+                "locationId": "Test JSON Data"
             },
             {
-                "storeID": "864",
-                "name": "La Cantera",
-                "address": "17414 La Cantera",
-                "city": "San Antonio",
-                "state": "TX",
-                "postalCode": "78257",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": false,
-                "distance": 7.50
-            },
-            {
-                "storeID": "152",
-                "name": "San Antonio Ingram",
-                "address": "6001 NW Loop 410",
-                "city": "San Antonio",
-                "state": "TX",
-                "postalCode": "78238",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": false,
-                "distance": 8.00
-            },
-            {
-                "storeID": "181",
-                "name": "Forum",
-                "address": "8210 Agora Pkwy",
-                "city": "Selma",
-                "state": "TX",
-                "postalCode": "78154",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": true,
-                "distance": 10.50
-            },
-            {
-                "storeID": "1459",
-                "name": "Alamo Ranch",
-                "address": "5419 W Loop 1604 N",
-                "city": "San Antonio",
-                "state": "TX",
-                "postalCode": "78253",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": false,
-                "distance": 13.10
-            },
-            {
-                "storeID": "1081",
-                "name": "City Base",
-                "address": "3142 SE Military Dr",
-                "city": "San Antonio",
-                "state": "TX",
-                "postalCode": "78223",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": false,
-                "distance": 13.60
-            },
-            {
-                "storeID": "828",
-                "name": "San Marcos",
-                "address": "1050 McKinley Place Dr",
-                "city": "San Marcos",
-                "state": "TX",
-                "postalCode": "78666",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": false,
-                "distance": 39.20
-            },
-            {
-                "storeID": "2516",
-                "name": "Southpark Meadows",
-                "address": "9600 S Interstate 35",
-                "city": "Austin",
-                "state": "TX",
-                "postalCode": "78748",
-                "storeType": "Big_Box_Store",
-                "minPickupHours": null,
-                "lowStock": false,
-                "distance": 60.30
+                "availabilityDate": "2023-08-11",
+                "distanceInMiles": 11111,
+                "fulfillmentMode": "PICKUP",
+                "locationCriterion": "FASTEST",
+                "locationId": "Test JSON Data",
+                "pickupReadyInMinutes": 120
             }
-        ]
+        ],
+        "search": {
+            "countryCode": "US",
+            "postalCode": "94901",
+            "skuId": "6346988"
+        }
     }
     const toggleModal = () => {
         setModal(!modal);
@@ -144,7 +102,6 @@ const BestbuyModal = (pageContext) => {
     const [error, setError] = useState('');
     const [isPanelVisible, setPanelVisible] = useState(true);
     const [isCancel, setCancel] = useState(false);
-    const [generatedUrl, setGeneratedUrl] = useState('');
     const handleShowInput = () => {
         setInputVisible(true);
         setError('');
@@ -153,7 +110,10 @@ const BestbuyModal = (pageContext) => {
         setCancel(true);
     };
 
+    const [currentStoreData, setStoreData] = useState()
+
     const handleSave = async () => {
+
         if (inputPostal.trim() === '') {
             setError('Please enter a value');
             return;
@@ -165,16 +125,21 @@ const BestbuyModal = (pageContext) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
-            body: JSON.stringify({ postalCode: inputPostal }),
+            body: JSON.stringify({
+                postalCode: inputPostal,
+                productSku: productDetails.sku
+            }),
         });
 
         if (response.ok) {
             const responseData = await response.json();
-            setGeneratedUrl(responseData.url);
+            setStoreData(responseData)
         }
     };
 
+    console.log("storesData Outside", currentStoreData);
     const handleCancel = () => {
         setInputVisible(false);
         setError('');
@@ -214,7 +179,7 @@ const BestbuyModal = (pageContext) => {
                         <div className="bby-top-section">
                             <div className="panel-top-container">
                                 <div className="pn-top-text">
-                                    Pickup Availability near <span className="postel-code">78216</span>
+                                    Pickup Availability near <span className="postel-code">78216 / 94901</span>
                                 </div>
                                 <div className="top-buttons">
                                     <a className='label-postalcode' onClick={handleShowInput}>Update Location</a>
@@ -239,7 +204,6 @@ const BestbuyModal = (pageContext) => {
                                             {error && <p className='error-message' style={{ color: 'red' }}>{error}</p>}
                                         </div>
                                         <a className='save-postalcode' onClick={handleSave} >Save</a>
-                                        <span>{generatedUrl}</span>
                                     </div>
                                 )}
                             </div>
@@ -273,7 +237,7 @@ const BestbuyModal = (pageContext) => {
                             <div className="location-panel-pop">
                                 <ul>
                                     <li>
-                                        <StoreList stores={storesData.stores} />
+                                        <StoreList stores={storesData.pickupAvailabilities} />
                                     </li>
                                 </ul>
                             </div>

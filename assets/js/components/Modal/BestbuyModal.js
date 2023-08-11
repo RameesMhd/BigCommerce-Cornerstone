@@ -6,83 +6,31 @@ const BestbuyModal = (pageContext) => {
     const [modal, setModal] = useState(true);
     const [isActiveFirstItem, setIsActiveFirstItem] = useState(true);
     const [isActiveSecondItem, setIsActiveSecondItem] = useState(false);
+    const [storeData, setStoreData] = useState(null);
 
     let myContext = pageContext.pageContext.getContext  // Get Context in myContext
     let productDetails = myContext.productData
-    // var storesData = {
-    //     "stores": [
-    //         {
-    //             "storeID": "201",
-    //             "name": "North Star",
-    //             "address": "125 NW Loop 410",
-    //             "city": "San Antonio",
-    //             "state": "TX",
-    //             "postalCode": "78216",
-    //             "storeType": "Big_Box_Store",
-    //             "minPickupHours": null,
-    //             "lowStock": false,
-    //             "distance": 1.20
-    //         },
-    //         {
-    //             "storeID": "1082",
-    //             "name": "Legacy",
-    //             "address": "2003 N Loop 1604 E",
-    //             "city": "San Antonio",
-    //             "state": "TX",
-    //             "postalCode": "78232",
-    //             "storeType": "Big_Box_Store",
-    //             "minPickupHours": null,
-    //             "lowStock": false,
-    //             "distance": 5.30
-    //         },
-    //         {
-    //             "storeID": "864",
-    //             "name": "La Cantera",
-    //             "address": "17414 La Cantera",
-    //             "city": "San Antonio",
-    //             "state": "TX",
-    //             "postalCode": "78257",
-    //             "storeType": "Big_Box_Store",
-    //             "minPickupHours": null,
-    //             "lowStock": false,
-    //             "distance": 7.50
-    //         }
-    //     ]
-    // }
-    var storesData = {
-        "pickupAvailabilities": [
-            {
-                "availabilityDate": "2023-08-11",
-                "distanceInMiles": 11111,
-                "fulfillmentMode": "PICKUP",
-                "locationCriterion": "BEST",
-                "locationId": "Test JSON Data",
-                "pickupReadyInMinutes": 120
-            },
-            {
-                "availabilityDate": "2023-08-14",
-                "distanceInMiles": 11111,
-                "fulfillmentMode": "PICKUP",
-                "locationCriterion": "NEAREST",
-                "locationId": "Test JSON Data"
-            },
-            {
-                "availabilityDate": "2023-08-11",
-                "distanceInMiles": 11111,
-                "fulfillmentMode": "PICKUP",
-                "locationCriterion": "FASTEST",
-                "locationId": "Test JSON Data",
-                "pickupReadyInMinutes": 120
-            }
-        ],
-        "search": {
-            "countryCode": "US",
-            "postalCode": "94901",
-            "skuId": "6346988"
-        }
-    }
-    const toggleModal = () => {
+    
+    const toggleModal = async () => {
         setModal(!modal);
+        // New fetch request when user click the pickup location option
+        const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
+        const response = await fetch(baseUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                postalCode: 78216,
+                productSku: productDetails.sku
+            }),
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            setStoreData(responseData)
+        }
     };
 
     const toggleActiveClass = (item) => {
@@ -110,7 +58,6 @@ const BestbuyModal = (pageContext) => {
         setCancel(true);
     };
 
-    const [storeData, setStoreData] = useState(null);
 
     const handleSave = async () => {
 

@@ -110,7 +110,7 @@ const BestbuyModal = (pageContext) => {
         setCancel(true);
     };
 
-    const [currentStoreData, setStoreData] = useState()
+    const [storeData, setStoreData] = useState(null);
 
     const handleSave = async () => {
 
@@ -139,7 +139,6 @@ const BestbuyModal = (pageContext) => {
         }
     };
 
-    console.log("storesData Outside", currentStoreData);
     const handleCancel = () => {
         setInputVisible(false);
         setError('');

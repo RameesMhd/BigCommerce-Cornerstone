@@ -6,6 +6,8 @@ cart: true
 {{inject 'invalidEntryMessage' (lang 'cart.invalid_entry_message')}}
 <div class="page">
 
+<!-- inject the cart item data to cartData -->
+{{inject 'cartData' cart.items}}
     <div class="page-content" data-cart>
         {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
 
@@ -30,6 +32,8 @@ cart: true
 
             {{#or customer (unless settings.hide_price_from_guests)}}
                 {{#if cart.show_primary_checkout_button}}
+                <!-- Add Bestbuy location option -->
+                <div id="bestbuy_integration"></div>
                     <div class="cart-actions cart-content-padding-right">
                         <a
                             class="button button--primary"

@@ -46,7 +46,11 @@ module.exports = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
             },
-            // Add other loaders for SCSS or other CSS pre-processors if needed.
+            // SCSS loaders
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
             {
                 test: require.resolve('jquery'),
                 loader: 'expose-loader',
@@ -92,5 +96,6 @@ module.exports = {
             'slick-carousel': path.resolve(__dirname, 'node_modules/slick-carousel/slick/slick.min.js'),
             'svg-injector': path.resolve(__dirname, 'node_modules/svg-injector/dist/svg-injector.min.js'),
         },
+        extensions: ['.js', '.scss'], // Add SCSS file extension to resolve
     },
 };

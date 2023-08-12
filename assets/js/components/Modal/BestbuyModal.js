@@ -10,7 +10,20 @@ const BestbuyModal = (pageContext) => {
 
     let myContext = pageContext.pageContext.getContext  // Get Context in myContext
     let productDetails = myContext.productData
-    
+    // AssigningS the card data based on the need
+    let cartProductDetails = myContext.cartData
+    var productSku;
+    var productImageUrl;
+    var productTitle;
+
+    if (cartProductDetails) {
+        cartProductDetails.forEach(cartProduct => {
+            productSku = cartProduct.sku
+            productImageUrl = cartProduct.image.data.replace('{:size}', '300x300')
+            productTitle = cartProduct.name
+        });
+    }
+
     const toggleModal = async () => {
         setModal(!modal);
         // New fetch request when user click the pickup location option
@@ -23,7 +36,7 @@ const BestbuyModal = (pageContext) => {
             },
             body: JSON.stringify({
                 postalCode: 78216,
-                productSku: productDetails.sku
+                productSku: cartProductDetails ? cartProductDetails.productSku : productDetails.sku
             }),
         });
 
@@ -76,7 +89,7 @@ const BestbuyModal = (pageContext) => {
             },
             body: JSON.stringify({
                 postalCode: inputPostal,
-                productSku: productDetails.sku
+                productSku: cartProductDetails ? cartProductDetails.productSku : productDetails.sku
             }),
         });
 
@@ -164,7 +177,7 @@ const BestbuyModal = (pageContext) => {
                                     <div className={isActiveSecondItem ? 'main-item-active second-item' : 'second-item'} onClick={() => toggleActiveClass('second')}>
                                         <div className={isActiveSecondItem ? 'item-active second-item-content' : 'second-item-content'}>
                                             <div className="item-img-box">
-                                                <img className="item-img" src={productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
+                                                <img className="item-img" src={cartProductDetails ? productImageUrl : productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +185,10 @@ const BestbuyModal = (pageContext) => {
                             )}
                             <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
                                 <span>
-                                    {isActiveFirstItem ? 'All Eligible Items' : productDetails.title}
+                                    {isActiveFirstItem
+                                        ? 'All Eligible Items'
+                                        : (cartProductDetails ? productTitle : productDetails.title)
+                                    }
                                 </span>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StoreList from './StoreList';
-import './BestbuyModal.css'
+import './BestbuyModal.scss'
 
 const BestbuyModal = (pageContext) => {
     const [modal, setModal] = useState(false);

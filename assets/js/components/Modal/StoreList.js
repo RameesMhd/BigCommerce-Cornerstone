@@ -1,5 +1,5 @@
 import React from 'react';
-import './BestbuyModal.css';
+import './BestbuyModal.scss';
 const StoreList = ({ stores }) => {
     return (
         <div>
@@ -13,9 +13,6 @@ const StoreList = ({ stores }) => {
                     </div>
                     <p className='store-address'> {store.address}</p>
                     <div className="item-status">
-                        {/* <span className="weight-text"
-                        >{store.lowStock ? <p>Low Stock</p> : <p>In Stock</p>}
-                        </span> */}
                         <span className="weight-text">
                             <p>In Stock by {store.availabilityDate}</p>
                         </span>

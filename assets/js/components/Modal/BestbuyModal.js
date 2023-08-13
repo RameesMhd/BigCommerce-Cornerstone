@@ -81,6 +81,8 @@ const BestbuyModal = (pageContext) => {
     const handleItemClick = (itemIndex) => {
         if (activeItem !== itemIndex) {
             setActiveItem(itemIndex);
+            const cartProduct = cartProductDetails[itemIndex];
+            setCartProductName(cartProduct.name);
         }
     };
 
@@ -216,10 +218,7 @@ const BestbuyModal = (pageContext) => {
                             )}
                             <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
                                 <span>
-                                    {/* {isActiveFirstItem
-                                        ? 'All Eligible Items'
-                                        : (cartProductDetails ? productTitle : productName)
-                                    } */}
+                                    {activeItem === -1 ? 'All Eligible Items' : cartProductName}
                                 </span>
                             </div>
                         </div>

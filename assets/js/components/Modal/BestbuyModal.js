@@ -81,11 +81,13 @@ const BestbuyModal = (pageContext) => {
     const handleItemClick = (itemIndex) => {
         if (activeItem !== itemIndex) {
             setActiveItem(itemIndex);
-            const cartProduct = cartProductDetails[itemIndex];
-            setCartProductName(cartProduct.name);
+            if (cartProductDetails) {
+                const cartProduct = cartProductDetails[itemIndex];
+                setCartProductName(cartProduct?.name);
+            }
         }
     };
-
+    
     // ***************** Update Location ******************
     const [inputVisible, setInputVisible] = useState(false);
     const [inputPostal, setInputData] = useState('');
@@ -218,7 +220,7 @@ const BestbuyModal = (pageContext) => {
                             )}
                             <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
                                 <span>
-                                    {activeItem === -1 ? 'All Eligible Items' : cartProductName}
+                                    {activeItem === -1 ? 'All Eligible Items' : (myContext.productData ? myContext.productData.title : cartProductName)}
                                 </span>
                             </div>
                         </div>

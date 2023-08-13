@@ -146,8 +146,14 @@ body.active-modal {
                 overflow: hidden;
                 width: 100%;
                 padding: 10px 0;
+                display: flex;
 
+                // use this for the selected item border 
                 .main-item-active {
+                    border: 2px solid #006600 !important;
+                }
+
+                .panel-list-item-active {
                     border: 2px solid #006600 !important;
                 }
 
@@ -165,7 +171,7 @@ body.active-modal {
                 }
 
                 .first-item,
-                .second-item {
+                .panel-list-item {
                     vertical-align: top;
                     text-align: center;
                     position: relative;
@@ -178,20 +184,8 @@ body.active-modal {
                     border: 1px solid #757575;
                     margin: 0 10px;
                     padding: 5px 8px;
-                }
 
-                .first-item {
-                    .first-item-content {
-                        color: #006600;
-                        font-size: 14px;
-                        font-weight: bold;
-                        margin: 7px 0px;
-                        white-space: break-spaces;
-                    }
-                }
-
-                .second-item {
-                    .second-item-content {
+                    .panel-list-data {
                         display: flex;
                         align-items: center;
                         justify-content: space-around;
@@ -209,6 +203,22 @@ body.active-modal {
                                 word-break: break-word;
                             }
                         }
+                    }
+                }
+
+                .select-item-active {
+                    .panel-list-item {
+                        border: 2px solid #006600 !important;
+                    }
+                }
+
+                .first-item {
+                    .first-item-content {
+                        color: #006600;
+                        font-size: 14px;
+                        font-weight: bold;
+                        margin: 7px 0px;
+                        white-space: break-spaces;
                     }
                 }
             }

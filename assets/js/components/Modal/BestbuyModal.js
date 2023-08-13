@@ -4,8 +4,6 @@ import './BestbuyModal.scss'
 
 const BestbuyModal = (pageContext) => {
     const [modal, setModal] = useState(false);
-    const [isActiveFirstItem, setIsActiveFirstItem] = useState(true);
-    const [isActiveSecondItem, setIsActiveSecondItem] = useState(false);
     const [storeData, setStoreData] = useState(null);
 
     let myContext = pageContext.pageContext.getContext  // Get Context in myContext
@@ -33,11 +31,9 @@ const BestbuyModal = (pageContext) => {
         const newPanelItems = [];
         if (myContext.productData) {
             var newPanelItem = (
-                <div className={'panel-list-item'}>
-                    <div className={'panel-list-data'}>
-                        <div className="item-img-box">
-                            <img className="item-img" src={cartProductDetails ? productImageUrl : productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
-                        </div>
+                <div className={'panel-list-data'}>
+                    <div className="item-img-box">
+                        <img className="item-img" src={cartProductDetails ? productImageUrl : productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
                     </div>
                 </div>
             );
@@ -46,11 +42,9 @@ const BestbuyModal = (pageContext) => {
         } else if (cartProductDetails) {
             cartProductDetails.forEach((cartProduct, index) => {
                 var newCartPanelItem = (
-                    <div key={`cart-item-${index}`} className={'panel-list-item'}>
-                        <div className={'panel-list-data'}>
-                            <div className="item-img-box">
-                                <img className="item-img" src={cartProduct.image.data.replace('{:size}', '300x300')} alt="" />
-                            </div>
+                    <div key={`cart-item-${index}`} className={'panel-list-data'}>
+                        <div className="item-img-box">
+                            <img className="item-img" src={cartProduct.image.data.replace('{:size}', '300x300')} alt="" />
                         </div>
                     </div>
                 );
@@ -82,16 +76,13 @@ const BestbuyModal = (pageContext) => {
         }
     };
 
-    const toggleActiveClass = (item) => {
-        if (item === 'first') {
-            setIsActiveFirstItem(true);
-            setIsActiveSecondItem(false);
-        } else {
-            setIsActiveFirstItem(false);
-            setIsActiveSecondItem(true);
-        }
+    const [activeItem, setActiveItem] = useState(-1); // Initialize with the first item
 
-    }
+    const handleItemClick = (itemIndex) => {
+        if (activeItem !== itemIndex) {
+            setActiveItem(itemIndex);
+        }
+    };
 
     // ***************** Update Location ******************
     const [inputVisible, setInputVisible] = useState(false);
@@ -205,25 +196,30 @@ const BestbuyModal = (pageContext) => {
 
                             {isPanelVisible && (
                                 <div className="panel-list-content">
-                                    <div className={isActiveFirstItem ? 'main-item-active first-item' : 'first-item'} onClick={() => toggleActiveClass('first')}>
-                                        <div className={isActiveFirstItem ? 'item-active first-item-content' : 'first-item-content'}>
+                                    <div className={` first-item ${activeItem === -1 ? 'main-item-active ' : ''}`}
+                                        onClick={() => handleItemClick(-1)}>
+                                        <div className={'item-active first-item-content'}>
                                             All Eligible Items
                                         </div>
                                     </div>
                                     {/* Add the Panel Items here */}
                                     {
                                         panelItems.map((panelItem, index) => (
-                                            <React.Fragment key={index}>{panelItem}</React.Fragment>
+                                            <div
+                                                key={index}
+                                                className={`panel-list-item ${activeItem === index ? 'main-item-active' : ''}`} onClick={() => handleItemClick(index)}>
+                                                {panelItem}
+                                            </div>
                                         ))
                                     }
                                 </div>
                             )}
                             <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
                                 <span>
-                                    {isActiveFirstItem
+                                    {/* {isActiveFirstItem
                                         ? 'All Eligible Items'
                                         : (cartProductDetails ? productTitle : productName)
-                                    }
+                                    } */}
                                 </span>
                             </div>
                         </div>

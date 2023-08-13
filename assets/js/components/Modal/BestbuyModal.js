@@ -24,8 +24,44 @@ const BestbuyModal = (pageContext) => {
         });
     }
 
+    const [panelItems, setPanelItems] = useState([]);
+    const [cartProductName, setCartProductName] = useState();
+    const [cartProductSku, setCartProductSku] = useState();
     const toggleModal = async () => {
         setModal(!modal);
+        // Create Products for cart and pdp page panel
+        const newPanelItems = [];
+        if (myContext.productData) {
+            var newPanelItem = (
+                <div className={'panel-list-item'}>
+                    <div className={'panel-list-data'}>
+                        <div className="item-img-box">
+                            <img className="item-img" src={cartProductDetails ? productImageUrl : productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
+                        </div>
+                    </div>
+                </div>
+            );
+            newPanelItems.push(newPanelItem);
+
+        } else if (cartProductDetails) {
+            cartProductDetails.forEach((cartProduct, index) => {
+                var newCartPanelItem = (
+                    <div key={`cart-item-${index}`} className={'panel-list-item'}>
+                        <div className={'panel-list-data'}>
+                            <div className="item-img-box">
+                                <img className="item-img" src={cartProduct.image.data.replace('{:size}', '300x300')} alt="" />
+                            </div>
+                        </div>
+                    </div>
+                );
+                var prdNameInCart = cartProduct.name;
+                var prdSkuInCart = cartProduct.sku;
+                setCartProductName(prdNameInCart);
+                setCartProductSku(prdSkuInCart);
+                newPanelItems.push(newCartPanelItem);
+            })
+        }
+        setPanelItems(newPanelItems);
         // New fetch request when user click the pickup location option
         const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
         const response = await fetch(baseUrl, {
@@ -174,20 +210,19 @@ const BestbuyModal = (pageContext) => {
                                             All Eligible Items
                                         </div>
                                     </div>
-                                    <div className={isActiveSecondItem ? 'main-item-active second-item' : 'second-item'} onClick={() => toggleActiveClass('second')}>
-                                        <div className={isActiveSecondItem ? 'item-active second-item-content' : 'second-item-content'}>
-                                            <div className="item-img-box">
-                                                <img className="item-img" src={cartProductDetails ? productImageUrl : productDetails.images[0].data.replace('{:size}', '300x300')} alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {/* Add the Panel Items here */}
+                                    {
+                                        panelItems.map((panelItem, index) => (
+                                            <React.Fragment key={index}>{panelItem}</React.Fragment>
+                                        ))
+                                    }
                                 </div>
                             )}
                             <div className="panel-bottom-text"><strong>Pickup Location for : </strong>
                                 <span>
                                     {isActiveFirstItem
                                         ? 'All Eligible Items'
-                                        : (cartProductDetails ? productTitle : productDetails.title)
+                                        : (cartProductDetails ? productTitle : productName)
                                     }
                                 </span>
                             </div>

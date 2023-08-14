@@ -98,7 +98,7 @@ const BestbuyModal = (pageContext) => {
                 },
                 body: JSON.stringify({
                     postalCode: 78216,
-                    productSku: productDetails.sku
+                    productSkus: productDetails.sku
                 }),
             });
 
@@ -144,7 +144,12 @@ const BestbuyModal = (pageContext) => {
         }
 
         // const baseUrl = 'https://bb-nb-bopis-middleware-5f718f91dc1a.herokuapp.com/getData'; // Heroku Url
-        const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
+        if(cartProductDetails){
+            var baseUrl = 'http://127.0.0.1:5000/avail-bulk-sku';
+        } else if(myContext.productData){
+            var baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
+        }
+
         const response = await fetch(baseUrl, {
             method: 'POST',
             headers: {
@@ -153,7 +158,7 @@ const BestbuyModal = (pageContext) => {
             },
             body: JSON.stringify({
                 postalCode: inputPostal,
-                productSku: cartProductDetails ? cartProductDetails.productSku : productDetails.sku
+                productSkus: cartProductDetails ? bulkProductSkus : productDetails.sku
             }),
         });
 

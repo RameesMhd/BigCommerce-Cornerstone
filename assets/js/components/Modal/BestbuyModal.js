@@ -14,11 +14,13 @@ const BestbuyModal = (pageContext) => {
     var productImageUrl;
     var productTitle;
 
+    var bulkProductSkus = []; // Get all products SKUs in cart 
     if (cartProductDetails) {
         cartProductDetails.forEach(cartProduct => {
             productSku = cartProduct.sku
             productImageUrl = cartProduct.image.data.replace('{:size}', '300x300')
             productTitle = cartProduct.name
+            bulkProductSkus.push(cartProduct.sku);
         });
     }
 
@@ -56,23 +58,54 @@ const BestbuyModal = (pageContext) => {
             })
         }
         setPanelItems(newPanelItems);
-        // New fetch request when user click the pickup location option
-        const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
-        const response = await fetch(baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-            body: JSON.stringify({
-                postalCode: 78216,
-                productSku: cartProductDetails ? cartProductDetails.productSku : productDetails.sku
-            }),
-        });
 
-        if (response.ok) {
-            const responseData = await response.json();
-            setStoreData(responseData)
+        // ******************************************************************
+        // ************ Fetch request from the cart page ********************
+        // ******************************************************************
+
+        if (cartProductDetails) {
+            const baseUrl = 'http://127.0.0.1:5000/avail-bulk-sku'; // Local Url
+            const response = await fetch(baseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
+                body: JSON.stringify({
+                    postalCode: 78216,
+                    productSkus: bulkProductSkus
+                }),
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                setStoreData(responseData)
+                // console.log("Bulk Data", responseData);
+            }
+        } else if (myContext.productData) {
+
+            // ************************************************************
+            // ***** New fetch when click the pickup location option ******
+            // ******************* from Pdp page **************************
+            // ************************************************************
+
+            const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
+            const response = await fetch(baseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
+                body: JSON.stringify({
+                    postalCode: 78216,
+                    productSku: productDetails.sku
+                }),
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                setStoreData(responseData)
+            }
         }
     };
 
@@ -87,7 +120,7 @@ const BestbuyModal = (pageContext) => {
             }
         }
     };
-    
+
     // ***************** Update Location ******************
     const [inputVisible, setInputVisible] = useState(false);
     const [inputPostal, setInputData] = useState('');

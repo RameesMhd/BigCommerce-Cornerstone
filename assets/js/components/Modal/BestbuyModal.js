@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StoreList from './StoreList';
 import './BestbuyModal.scss'
 
@@ -189,6 +189,16 @@ const BestbuyModal = (pageContext) => {
     // ***************************************************************
     const [selectedStore, setSelectedStore] = useState(null);
     const [selectedStoreIndex, setSelectedStoreIndex] = useState(null);
+
+    // Update Selected item box automatically with the 
+    // first index of store data when storeData != null
+
+    useEffect(() => {
+        if (storeData != null) {
+            setSelectedStore(storeData[0]);
+            setSelectedStoreIndex(0);
+        }
+    }, [storeData]);
 
     const handleStoreClick = (store, index) => {
         setSelectedStore(store);

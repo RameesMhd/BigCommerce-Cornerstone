@@ -144,9 +144,9 @@ const BestbuyModal = (pageContext) => {
         }
 
         // const baseUrl = 'https://bb-nb-bopis-middleware-5f718f91dc1a.herokuapp.com/getData'; // Heroku Url
-        if(cartProductDetails){
+        if (cartProductDetails) {
             var baseUrl = 'http://127.0.0.1:5000/avail-bulk-sku';
-        } else if(myContext.productData){
+        } else if (myContext.productData) {
             var baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
         }
 
@@ -183,6 +183,42 @@ const BestbuyModal = (pageContext) => {
         const sanitizedValue = event.target.value.replace(/\D/g, '').slice(0, 5);
         setInputData(sanitizedValue);
     }
+
+    // ***************************************************************
+    // show the selected location in the in a new panel with it's data
+    // ***************************************************************
+    const [selectedStore, setSelectedStore] = useState(null);
+    const [selectedStoreIndex, setSelectedStoreIndex] = useState(null);
+
+    const handleStoreClick = (store, index) => {
+        setSelectedStore(store);
+        setSelectedStoreIndex(index);
+    };
+
+    const SelectedLocation = ({ selectedStore, selectedStoreIndex }) => {
+        if (!selectedStore) {
+            return null; // Nothing to display if no store is selected
+        }
+
+        return (
+            <div className="lc-item-selected-box">
+                <div className="item-distance-box">
+                    <div className="item-number">{selectedStoreIndex}</div>
+                    <div className="item-distance">{selectedStore.distanceInMiles} Miles Away</div>
+                </div>
+                <div className="item-title">{selectedStore.displayName}
+                </div>
+                <p className='store-address'> {selectedStore.address}</p>
+                <div className="item-status">
+                    <span className="weight-text">
+                        <p>In Stock by {selectedStore.availabilityDate}</p>
+                    </span>
+                </div>
+                <div className='item-address'>
+                </div>
+            </div>
+        );
+    };
 
     return (
         <>
@@ -266,11 +302,11 @@ const BestbuyModal = (pageContext) => {
                         <div className="location-map-container">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d888813.1931412118!2d-99.55072402954099!3d29.518500480769003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865c60080b3a8683%3A0xa1efdeee07c5cf83!2sNorth%20Star%20Mall!5e0!3m2!1sen!2sin!4v1691132606327!5m2!1sen!2sin" width="100%" height="500px" loading="lazy" />
 
+                            {/* *********** Selected Location *********** */}
+                            <SelectedLocation selectedStore={selectedStore} selectedStoreIndex={selectedStoreIndex + 1} />
                             <div className="location-panel-pop">
                                 <ul>
-                                    <li>
-                                        <StoreList stores={storeData ? storeData : []} />
-                                    </li>
+                                    <StoreList stores={storeData ? storeData : []} onStoreClick={handleStoreClick} />
                                 </ul>
                             </div>
                         </div>

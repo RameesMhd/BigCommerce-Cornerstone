@@ -233,6 +233,9 @@ body.active-modal {
 
             .lc-item-selected-box {
                 position: absolute;
+                width: auto;
+                max-width: 275px;
+                min-width: 200px;
                 bottom: 10px;
                 right: 10px;
                 padding: 5px 7px;

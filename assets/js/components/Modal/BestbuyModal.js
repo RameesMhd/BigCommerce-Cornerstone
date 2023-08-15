@@ -316,7 +316,7 @@ const BestbuyModal = (pageContext) => {
                             <SelectedLocation selectedStore={selectedStore} selectedStoreIndex={selectedStoreIndex + 1} />
                             <div className="location-panel-pop">
                                 <ul>
-                                    <StoreList stores={storeData ? storeData : []} onStoreClick={handleStoreClick} />
+                                    <StoreList stores={storeData ? storeData : []} onStoreClick={handleStoreClick} selectedStoreIndex={selectedStoreIndex} />
                                 </ul>
                             </div>
                         </div>

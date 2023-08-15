@@ -1,10 +1,10 @@
 import React from 'react';
 import './BestbuyModal.scss';
-const StoreList = ({ stores, onStoreClick }) => {
+const StoreList = ({ stores, onStoreClick, selectedStoreIndex }) => {
     return (
         <div>
             {stores.map((store, index) => (
-                <div key={index} className="lc-item-box" onClick={() => onStoreClick(store, index)}>
+                <div key={index} className={`lc-item-box ${selectedStoreIndex === index ? 'selected-store' : ''}`} onClick={() => onStoreClick(store, index)}>
                     <div className="item-distance-box">
                         <div className="item-number">{index + 1}</div>
                         <div className="item-distance" data-tkey="number.miles.away">{store.distanceInMiles} Miles Away</div>

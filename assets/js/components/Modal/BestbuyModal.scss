@@ -290,6 +290,12 @@ body.active-modal {
                     list-style: none;
                     margin: 0px;
 
+                    // Add border to the selected item in store list
+                    .selected-store {
+                        border: 3px solid #006600 !important;
+                        border-radius: 6px;
+                    }
+
                     .lc-item-box {
                         padding: 20px;
                         line-height: 22px;

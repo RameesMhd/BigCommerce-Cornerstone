@@ -314,10 +314,14 @@ const BestbuyModal = (pageContext) => {
 
                             {/* *********** Selected Location *********** */}
                             <SelectedLocation selectedStore={selectedStore} selectedStoreIndex={selectedStoreIndex + 1} />
-                            <div className="location-panel-pop">
-                                <ul>
-                                    <StoreList stores={storeData ? storeData : []} onStoreClick={handleStoreClick} selectedStoreIndex={selectedStoreIndex} />
-                                </ul>
+                            <div className={`location-panel-pop ${storeData && storeData.length === 0 ? 'response-message' : ''}`}>
+                                {storeData && storeData.length === 0 ? (
+                                    <h1 className="error-response-message">Oops.., <br /> no stores found in this postal code! <br /> Better luck with other postal codes.</h1>
+                                ) : (
+                                    <ul>
+                                        <StoreList stores={storeData ? storeData : []} onStoreClick={handleStoreClick} selectedStoreIndex={selectedStoreIndex} />
+                                    </ul>
+                                )}
                             </div>
                         </div>
                         <button className="close-modal" onClick={toggleModal}>

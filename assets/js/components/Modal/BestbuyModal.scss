@@ -273,6 +273,23 @@ body.active-modal {
                 .weight-text {
                     font-weight: bold;
                 }
+
+                .save-selected {
+                    color: #fff;
+                    font-weight: bold;
+                    border-radius: 4px;
+                    height: 40px;
+                    width: auto;
+                    cursor: pointer;
+                    text-align: center;
+                    border: 1px solid #0d5c91;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    background: #0d5c91;
+                    text-decoration: none;
+                    padding: 12px;
+                }
             }
 
             // No store found stylings

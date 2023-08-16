@@ -210,6 +210,13 @@ const BestbuyModal = (pageContext) => {
             return null; // Nothing to display if no store is selected
         }
 
+        // Store the location id to the Local storage
+        const handleSelectLocation = () => {
+            if (selectedStore.locationId) {
+                localStorage.setItem('selectedLocationId', selectedStore.locationId);
+            }
+        };
+
         return (
             <div className="lc-item-selected-box">
                 <div className="item-distance-box">
@@ -224,8 +231,7 @@ const BestbuyModal = (pageContext) => {
                         <p>In Stock by {selectedStore.availabilityDate}</p>
                     </span>
                 </div>
-                <div className='item-address'>
-                </div>
+                <a className='save-selected' onClick={handleSelectLocation}>Select This Location</a>
             </div>
         );
     };

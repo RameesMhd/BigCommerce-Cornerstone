@@ -24,6 +24,24 @@ const BestbuyModal = (pageContext) => {
         });
     }
 
+    // Get acces to the stored Location id globally
+    const getStoredLocationId = () => {
+        return localStorage.getItem('selectedLocationId');
+    };
+
+    //Get the cart Count
+    const getCartCount = () => {
+        return localStorage.getItem('cart-quantity');
+    }
+    var cartCount = getCartCount()
+
+    if (getStoredLocationId()) {
+        var storedLocationId = getStoredLocationId();
+        console.log("storedLocationId :", storedLocationId);
+    } else {
+        console.log("storedLocationId Not Available");
+    }
+
     const [panelItems, setPanelItems] = useState([]);
     const [cartProductName, setCartProductName] = useState();
     const [cartProductSku, setCartProductSku] = useState();
@@ -73,7 +91,8 @@ const BestbuyModal = (pageContext) => {
                 },
                 body: JSON.stringify({
                     postalCode: 78216,
-                    productSkus: bulkProductSkus
+                    productSkus: bulkProductSkus,
+                    preferredLocationId: storedLocationId
                 }),
             });
 
@@ -98,7 +117,8 @@ const BestbuyModal = (pageContext) => {
                 },
                 body: JSON.stringify({
                     postalCode: 78216,
-                    productSkus: productDetails.sku
+                    productSkus: productDetails.sku,
+                    preferredLocationId: storedLocationId
                 }),
             });
 
@@ -158,7 +178,8 @@ const BestbuyModal = (pageContext) => {
             },
             body: JSON.stringify({
                 postalCode: inputPostal,
-                productSkus: cartProductDetails ? bulkProductSkus : productDetails.sku
+                productSkus: cartProductDetails ? bulkProductSkus : productDetails.sku,
+                preferredLocationId: storedLocationId
             }),
         });
 
@@ -231,7 +252,7 @@ const BestbuyModal = (pageContext) => {
                         <p>In Stock by {selectedStore.availabilityDate}</p>
                     </span>
                 </div>
-                <a className='save-selected' onClick={handleSelectLocation}>Select This Location</a>
+                <a className='save-selected' href={`/cart.php?action=add&sku=${myContext.productData ? productDetails.sku : {}}`} onClick={handleSelectLocation}>Select & Add to cart</a>
             </div>
         );
     };

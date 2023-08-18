@@ -112,7 +112,6 @@ const BestbuyModal = (pageContext) => {
             if (localSkusArray.length >= 1) {
                 const baseUrl = 'http://127.0.0.1:5000/avail-bulk-sku'; // Local Url
                 localSkusArray.push(productDetails.sku)
-                console.log("skusArray",localSkusArray);
                 const response = await fetch(baseUrl, {
                     method: 'POST',
                     headers: {
@@ -192,8 +191,13 @@ const BestbuyModal = (pageContext) => {
         }
 
         // const baseUrl = 'https://bb-nb-bopis-middleware-5f718f91dc1a.herokuapp.com/getData'; // Heroku Url
-        if (cartProductDetails) {
+        if (cartProductDetails || myContext.productData && localSkusArray.length >= 1) {
             var baseUrl = 'http://127.0.0.1:5000/avail-bulk-sku';
+            if (cartProductDetails) {
+                localSkusArray = localSkusArray
+            } else {
+                localSkusArray.push(productDetails.sku)
+            }
         } else if (myContext.productData) {
             var baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
         }
@@ -206,7 +210,7 @@ const BestbuyModal = (pageContext) => {
             },
             body: JSON.stringify({
                 postalCode: inputPostal,
-                productSkus: cartProductDetails ? bulkProductSkus : productDetails.sku,
+                productSkus: cartProductDetails || myContext.productData && localSkusArray.length >= 1 ? localSkusArray : productDetails.sku,
                 preferredLocationId: storedLocationId
             }),
         });

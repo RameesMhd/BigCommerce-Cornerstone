@@ -24,6 +24,9 @@ const BestbuyModal = (pageContext) => {
         });
     }
 
+    // Retrieve the skus array from local storage
+    let retrievedBulkPrdSkusLocal = localStorage.getItem('bulkProductSkusLocal');
+    let localSkusArray = JSON.parse(retrievedBulkPrdSkusLocal); // Convert string to array
     // Get acces to the stored Location id globally
     const getStoredLocationId = () => {
         return localStorage.getItem('selectedLocationId');
@@ -37,10 +40,7 @@ const BestbuyModal = (pageContext) => {
 
     if (getStoredLocationId()) {
         var storedLocationId = getStoredLocationId();
-        console.log("storedLocationId :", storedLocationId);
-    } else {
-        console.log("storedLocationId Not Available");
-    }
+    } 
 
     const [panelItems, setPanelItems] = useState([]);
     const [cartProductName, setCartProductName] = useState();
@@ -108,23 +108,51 @@ const BestbuyModal = (pageContext) => {
             // ******************* from Pdp page **************************
             // ************************************************************
 
-            const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
-            const response = await fetch(baseUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
-                body: JSON.stringify({
-                    postalCode: 78216,
-                    productSkus: productDetails.sku,
-                    preferredLocationId: storedLocationId
-                }),
-            });
+            // Check based on cart Item
+            if (localSkusArray.length >= 1) {
+                const baseUrl = 'http://127.0.0.1:5000/avail-bulk-sku'; // Local Url
+                localSkusArray.push(productDetails.sku)
+                console.log("skusArray",localSkusArray);
+                const response = await fetch(baseUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify({
+                        postalCode: 78216,
+                        productSkus: localSkusArray,
+                        preferredLocationId: storedLocationId
+                    }),
+                });
 
-            if (response.ok) {
-                const responseData = await response.json();
-                setStoreData(responseData)
+                if (response.ok) {
+                    const responseData = await response.json();
+                    setStoreData(responseData)
+                    // console.log("Bulk Data", responseData);
+                }
+
+            } 
+            // Check the pdp product
+            else {
+                const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url
+                const response = await fetch(baseUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify({
+                        postalCode: 78216,
+                        productSkus: productDetails.sku,
+                        preferredLocationId: storedLocationId
+                    }),
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    setStoreData(responseData)
+                }
             }
         }
     };

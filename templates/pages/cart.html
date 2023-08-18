@@ -8,6 +8,21 @@ cart: true
 
 <!-- inject the cart item data to cartData -->
 {{inject 'cartData' cart.items}}
+
+<!-- Update the product skus in the cart to Local storage  -->
+<script> 
+    function handleCartQuantityChange() {
+        var bulkSkusInCartLocal = []
+        {{#each cart.items}}
+            var product_skus = '{{sku}}'
+            bulkSkusInCartLocal.push(product_skus)
+        {{/each}}
+
+        var bulkProductSkusString = JSON.stringify(bulkSkusInCartLocal);
+        localStorage.setItem('bulkProductSkusLocal', bulkProductSkusString);   // Store the stringified array in local storage
+    }
+</script>
+
     <div class="page-content" data-cart>
         {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
 

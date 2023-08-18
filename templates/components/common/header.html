@@ -34,7 +34,10 @@
 {{{region name="header_bottom"}}}
 
 <script>
-    var emptyArray = []
+    var emptyArray = [];
     var array = JSON.stringify(emptyArray);
-    localStorage.setItem('bulkProductSkusLocal', array);
+    if (!localStorage.getItem('bulkProductSkusLocal')){
+        console.log("No var found");
+        localStorage.setItem('bulkProductSkusLocal', array);
+    }
 </script>

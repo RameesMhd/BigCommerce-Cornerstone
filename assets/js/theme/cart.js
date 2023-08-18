@@ -22,6 +22,7 @@ export default class Cart extends PageManager {
 
         this.setApplePaySupport();
         this.bindEvents();
+        handleCartQuantityChange() // Call () to update the local storage variable
     }
 
     setApplePaySupport() {
@@ -112,6 +113,7 @@ export default class Cart extends PageManager {
         utils.api.cart.itemRemove(itemId, (err, response) => {
             if (response.data.status === 'succeed') {
                 this.refreshContent(true);
+                return window.location.reload(); // reload the cart when item removed
             } else {
                 this.$overlay.hide();
                 showAlertModal(response.data.errors.join('\n'));

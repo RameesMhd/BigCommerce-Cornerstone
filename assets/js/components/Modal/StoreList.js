@@ -7,7 +7,7 @@ const StoreList = ({ stores, onStoreClick, selectedStoreIndex }) => {
                 <div key={index} className={`lc-item-box ${selectedStoreIndex === index ? 'selected-store' : ''}`} onClick={() => onStoreClick(store, index)}>
                     <div className="item-distance-box">
                         <div className="item-number">{index + 1}</div>
-                        <div className="item-distance" data-tkey="number.miles.away">{store.distanceInMiles} Miles Away</div>
+                        <div className="item-distance"> {store.distanceInMiles ? store.distanceInMiles + 'Miles Away' : ''}</div>
                     </div>
                     <div className="item-title">{store.displayName}
                     </div>

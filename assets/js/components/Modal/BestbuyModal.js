@@ -40,7 +40,7 @@ const BestbuyModal = (pageContext) => {
 
     if (getStoredLocationId()) {
         var storedLocationId = getStoredLocationId();
-    } 
+    }
 
     const [panelItems, setPanelItems] = useState([]);
     const [cartProductName, setCartProductName] = useState();
@@ -81,8 +81,8 @@ const BestbuyModal = (pageContext) => {
         // ************ Fetch request from the cart page ********************
         // ******************************************************************
 
-        if (cartProductDetails) {
-            const baseUrl = 'http://127.0.0.1:5000/avail-bulk-sku'; // Local Url
+        if (cartProductDetails && localSkusArray.length >= 1) {
+            const baseUrl = 'http://127.0.0.1:5000/available-in-location'; // Local Url
             const response = await fetch(baseUrl, {
                 method: 'POST',
                 headers: {
@@ -91,7 +91,7 @@ const BestbuyModal = (pageContext) => {
                 },
                 body: JSON.stringify({
                     postalCode: 78216,
-                    productSkus: bulkProductSkus,
+                    productSkus: localSkusArray,
                     preferredLocationId: storedLocationId
                 }),
             });
@@ -110,7 +110,7 @@ const BestbuyModal = (pageContext) => {
 
             // Check based on cart Item
             if (localSkusArray.length >= 1) {
-                const baseUrl = 'http://127.0.0.1:5000/avail-bulk-sku'; // Local Url
+                const baseUrl = 'http://127.0.0.1:5000/available-in-location'; // Local Url
                 localSkusArray.push(productDetails.sku)
                 const response = await fetch(baseUrl, {
                     method: 'POST',
@@ -130,8 +130,7 @@ const BestbuyModal = (pageContext) => {
                     setStoreData(responseData)
                     // console.log("Bulk Data", responseData);
                 }
-
-            } 
+            }
             // Check the pdp product
             else {
                 const baseUrl = 'http://127.0.0.1:5000/avail-Sku-Postal'; // Local Url

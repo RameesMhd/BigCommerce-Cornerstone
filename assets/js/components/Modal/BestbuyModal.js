@@ -271,7 +271,7 @@ const BestbuyModal = (pageContext) => {
             <div className="lc-item-selected-box">
                 <div className="item-distance-box">
                     <div className="item-number">{selectedStoreIndex}</div>
-                    <div className="item-distance">{selectedStore.distanceInMiles} Miles Away</div>
+                    <div className="item-distance">{selectedStore.distanceInMiles ? selectedStore.distanceInMiles + 'Miles Away' : ''}</div>
                 </div>
                 <div className="item-title">{selectedStore.displayName}
                 </div>

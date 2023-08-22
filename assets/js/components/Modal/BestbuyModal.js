@@ -309,7 +309,7 @@ const BestbuyModal = (pageContext) => {
                         <div className="bby-top-section">
                             <div className="panel-top-container">
                                 <div className="pn-top-text">
-                                    Pickup Availability near <span className="postel-code">78216 / 94901</span>
+                                    Pickup Availability <span className="postel-code">{localSkusArray.length >= 1 ? 'At ' + locationName : 'near ' + 78216}</span>
                                 </div>
                                 <div className="top-buttons">
                                     <a className='label-postalcode' onClick={handleShowInput}>Update Location</a>

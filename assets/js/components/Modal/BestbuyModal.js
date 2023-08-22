@@ -32,15 +32,12 @@ const BestbuyModal = (pageContext) => {
         return localStorage.getItem('selectedLocationId');
     };
 
-    //Get the cart Count
-    const getCartCount = () => {
-        return localStorage.getItem('cart-quantity');
-    }
-    var cartCount = getCartCount()
-
     if (getStoredLocationId()) {
         var storedLocationId = getStoredLocationId();
     }
+
+    // Todo : Set the store location name 
+    var locationName = localStorage.getItem('selectedLocationName');;
 
     const [panelItems, setPanelItems] = useState([]);
     const [cartProductName, setCartProductName] = useState();
@@ -266,6 +263,7 @@ const BestbuyModal = (pageContext) => {
         const handleSelectLocation = () => {
             if (selectedStore.locationId) {
                 localStorage.setItem('selectedLocationId', selectedStore.locationId);
+                localStorage.setItem('selectedLocationName', selectedStore.displayName);
             }
         };
 
@@ -297,7 +295,7 @@ const BestbuyModal = (pageContext) => {
                         Store Pickup
                     </p>
                 </div>
-                <span> Ready  at <strong >BEST BUY</strong> Stores</span>
+                <span> Ready  at <strong >BEST BUY {locationName === null ? '' : locationName} </strong> Store</span>
                 <a onClick={toggleModal} className="bby-btn-modal">
                     See all pickup locations
                 </a>

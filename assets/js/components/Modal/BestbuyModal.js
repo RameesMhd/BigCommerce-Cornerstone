@@ -333,7 +333,7 @@ const BestbuyModal = (pageContext) => {
                                             />
                                             {error && <p className='error-message' style={{ color: 'red' }}>{error}</p>}
                                         </div>
-                                        <a className='save-postalcode' onClick={handleSave} >Save</a>
+                                        <a className='save-postalcode' onClick={handleSave} >Update</a>
                                     </div>
                                 )}
                             </div>
